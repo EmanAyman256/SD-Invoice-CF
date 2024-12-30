@@ -1,7 +1,7 @@
 applications:
 - name: Service-Invoice-dev
   instances: 1
-  memory: 300MB
+  memory: 512MB
   buildpacks:
     - staticfile_buildpack
   path: /dist/btp-sd-app  

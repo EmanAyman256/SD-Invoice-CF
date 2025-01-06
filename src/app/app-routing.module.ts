@@ -17,12 +17,10 @@ const routes: Routes = [
   { path: 'service-invoice',canActivate:[AuthGuard], component: ServiceInvoiceComponent },
 
   { path: 'service-invoice-data',canActivate:[AuthGuard], component: CloudDataComponent },
-  // //data: { role: ['Admin', 'Manager'] } // for auth role:
+  //data: { role: ['Admin', 'Manager'] } // for auth role:
   // !Without Security::
   // { path: '', component: CloudDataComponent },
-
   // { path: 'service-invoice', component: ServiceInvoiceComponent },
-  
   // { path: 'service-invoice-data', component: CloudDataComponent },
 ];
 

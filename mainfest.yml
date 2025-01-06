@@ -1,5 +1,5 @@
 applications:
-- name: Service-Invoice-dev
+- name: Service-Invoice-test
   instances: 1
   memory: 512MB
   buildpacks:

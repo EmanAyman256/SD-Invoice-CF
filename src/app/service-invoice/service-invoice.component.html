@@ -412,7 +412,8 @@
                     {{mainItem.currencyCode}}
                 </td>
                 <td style="min-width: 10rem;">
-                    {{mainItem.total}}
+                    <!-- {{mainItem.total}} -->
+                     {{(mainItem.serviceQuantity??0)*(mainItem.amountPerUnit??0)}}
                 </td>
                 <td style="min-width: 10rem;">
                     {{mainItem.totalQuantity}}
@@ -519,7 +520,8 @@
             </td>
             <td style="min-width: 10rem;">
                 <ng-container *ngIf="executionOrderWithlineNumber">
-                    {{executionOrderWithlineNumber.total}}
+                    <!-- {{executionOrderWithlineNumber.total}} -->
+                     {{((executionOrderWithlineNumber.serviceQuantity??0)*(executionOrderWithlineNumber.amountPerUnit??0))}}
                 </ng-container>
             </td>
             <td style="min-width: 10rem;">

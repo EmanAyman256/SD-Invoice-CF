@@ -466,7 +466,7 @@ export class ServiceInvoiceComponent {
       message: 'Are you sure you want to save the document?',
       header: 'Confirm Saving ',
       accept: () => {
-
+      console.log(this.serviceInvoiceRecords);
         const saveRequests = this.serviceInvoiceRecords.map((item) => ({
           executionOrderMain: item.executionOrderMain, // as an object 
           executionOrderMainCode: item.executionOrderMainCode, // code
@@ -531,7 +531,50 @@ export class ServiceInvoiceComponent {
               life: 3000
             });
 
-          }, error: (err) => {
+            // update execution orders:
+            const updatedOrders = this.serviceInvoiceRecords.map((item) => ({
+              // executionOrderMain: item.executionOrderMain, // as an object 
+               executionOrderMainCode: item.executionOrderMainCode, // code
+              actualQuantity: item.actualQuantity,
+              actualPercentage: item.actualPercentage,
+              remainingQuantity: item.remainingQuantity,
+            }));
+            // Loop through each item in updatedOrders and send a PATCH request
+updatedOrders.forEach((record) => {
+  const filteredRecord = {
+    actualQuantity: record.actualQuantity,
+    actualPercentage: record.actualPercentage,
+    remainingQuantity: record.remainingQuantity,
+  };
+
+  this._ApiService.patch<MainItemExecutionOrder>('executionordermain', record.executionOrderMainCode, filteredRecord).subscribe({
+    next: (res) => {
+      console.log('executionordermain updated:', res);
+      // this.totalValue = 0;
+      // this.ngOnInit(); // Refresh the component
+    },
+    error: (err) => {
+      console.error(err);
+      // this.messageService.add({
+      //   severity: 'error',
+      //   summary: 'Error',
+      //   detail: 'Invalid Data',
+      // });
+    },
+    complete: () => {
+     // this.updateSelectedServiceNumberRecord = undefined;
+      // this.messageService.add({
+      //   severity: 'success',
+      //   summary: 'Success',
+      //   detail: 'Record updated successfully',
+      // });
+    }
+  })
+  })
+   
+            //end
+
+}, error: (err) => {
             console.error('Error saving main items:', err);
             this.messageService.add({
               severity: 'error',
@@ -682,7 +725,8 @@ export class ServiceInvoiceComponent {
         quantity: this.executionOrderWithlineNumber.serviceQuantity ? this.executionOrderWithlineNumber.serviceQuantity : 0,
 
         amountPerUnit: this.executionOrderWithlineNumber.amountPerUnit,
-        total: this.executionOrderWithlineNumber.total,
+        total: (this.executionOrderWithlineNumber.serviceQuantity??0)*(this.executionOrderWithlineNumber.amountPerUnit??0),
+        //this.executionOrderWithlineNumber.total,
         // remainingQuantity:,
         // actualQuantity: this.newMainItem.actualQuantity,
         // actualPercentage: this.newMainItem.actualPercentage,
@@ -859,7 +903,8 @@ export class ServiceInvoiceComponent {
       quantity: mainItem.serviceQuantity ? mainItem.serviceQuantity : 0,
 
       amountPerUnit: mainItem.amountPerUnit,
-      total: mainItem.total,
+      total: (mainItem.serviceQuantity??0)*(mainItem.amountPerUnit??0),
+      //mainItem.total,
 
       //remainingQuantity: (mainItem.remainingQuantity ?? 0) - (mainItem.serviceQuantity ?? 0),
       // actualQuantity: (mainItem.actualQuantity ?? 0) + (mainItem.serviceQuantity ?? 0),

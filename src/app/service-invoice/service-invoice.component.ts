@@ -22,6 +22,8 @@ export class ServiceInvoiceComponent {
   itemNumber!: number;
   customerId!: number;
   itemText:string="";
+  cloudCurrency!:string;
+
   displayExecutionDocumentDialog = false;
   executionDocumentNumber: string = '';
 
@@ -47,7 +49,8 @@ export class ServiceInvoiceComponent {
     this.documentNumber = this.router.getCurrentNavigation()?.extras.state?.['documentNumber'];
     this.itemNumber = this.router.getCurrentNavigation()?.extras.state?.['itemNumber'];
     this.customerId = this.router.getCurrentNavigation()?.extras.state?.['customerId'];
-    console.log(this.documentNumber, this.itemNumber, this.customerId);
+     this.cloudCurrency = this.router.getCurrentNavigation()?.extras.state?.['currency'];
+    console.log(this.documentNumber, this.itemNumber, this.customerId,this.cloudCurrency);
   }
 
     // Initial calculation of totalValue (call this when initializing the component)

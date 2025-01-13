@@ -2,7 +2,7 @@
     <p-toast></p-toast>
     <p-toolbar>
         <div class="p-toolbar-group-start">
-            <h6>{{itemText}}</h6>
+            <h5>{{itemText}}</h5>
         </div>
         <div class="p-toolbar-group-end">
             <!-- <button pButton pRipple icon="pi pi-copy" (click)="copyRecord()" class="p-button-rounded m-2"></button> -->
@@ -27,7 +27,7 @@
                 {{totalValue | currency }}
             </div>
             <div class="col-2 col-sm-4 border">
-                SAR
+              {{cloudCurrency}}
             </div>
         </div>
     </div>
@@ -171,9 +171,11 @@
                 <p-cellEditor>
                     <ng-template pTemplate="input">
                         {{ mainItem.currencyCode }}
+                        <!-- {{cloudCurrency}} -->
                     </ng-template>
                     <ng-template pTemplate="output">
                         {{ mainItem.currencyCode }}
+                        <!-- {{cloudCurrency}} -->
                     </ng-template>
                 </p-cellEditor>
             </td>
